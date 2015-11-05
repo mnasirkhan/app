@@ -90,7 +90,7 @@ var _Login_DIR_TO_SERVER = _PROJECT_DIR_+'data-files/';
                 var params = $('#loginfrm').serializeArray();
                 alert(params);
                  $.getJSON(_Login_DIR_TO_SERVER+'user-ctrl.php',params, function(data) {   
-                     alert(data.mgs);
+                     alert(data.msg);
                      if (data.msg == 'failed') {
                          alert('Invalid Username/or Password');
                      } else {
