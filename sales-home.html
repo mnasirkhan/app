@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Sales - Al Marwan </title>
+        <link rel="shortcut icon" href="jqm/favicon.ico">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+        <link rel="stylesheet" href="jqm/css/themes/default/jquery.mobile-1.4.3.min.css">
+        <link rel="stylesheet" href="jqm/_assets/css/jqm-demos.css">
+        <script src="jqm/js/jquery.js"></script>
+        <script src="jqm/_assets/js/index.js"></script>
+        <script src="jqm/js/jquery.mobile-1.4.3.min.js"></script>
+        <script src="jqm/my_functions.js"></script>
+        <style id="custom-icon">
+            .ui-icon-custom:after {
+                background-image: url("jqm/_assets/img/glyphish-icons/21-skull.png");
+                background-position: 3px 3px;
+                background-size: 70%;
+            }
+            .ui-header .ui-title {
+                margin-right: 10%;
+                margin-left: 10%;
+            }
+            .Row
+            {
+                display: table;
+                width: 100%; /*Optional*/
+                table-layout: fixed; /*Optional*/
+                border-spacing: 5px; /*Optional*/
+            }
+            .Column {
+                display: table-cell;
+                border: 1px solid #ccc;
+                padding: 3px 2px;
+                text-align: center;
+                background-color: none; /*Optional*/
+                word-wrap: break-word; 
+            }
+            .Column img{
+                width: 100%;
+            }
+            .wordwrap { 
+                white-space: pre-wrap;      /* CSS3 */   
+                white-space: -moz-pre-wrap; /* Firefox */    
+                white-space: -pre-wrap;     /* Opera <7 */   
+                white-space: -o-pre-wrap;   /* Opera 7 */    
+                word-wrap: break-word;      /* IE */
+                font-size: 11px;
+            }
+        </style>
+
+    </head>
+    <body onload="">
+        <div data-role="page" id="graph_view">
+            <div data-role="header" data-position="fixed">                 
+                <h1>Report</h1>
+            </div>
+            <div data-role="content">
+                <h2>Marwan General Contracting Co. (MGCC)</h2>
+                <p></p>
+                <table width="100%" >
+                    <tr>                            
+                        <th>Category</th>                            
+                        <th>Opening
+                    <table width="100%">
+                        <tr>
+                            <th>Pur.Val</th>
+                            <th>Dept</th>
+                        </tr>
+                    </table>
+                    </th>                        
+                    <th>Additions
+                    <table width="100%">
+                        <tr>
+                            <th>Pur.Val</th>
+                            <th>Dept</th>
+                        </tr>
+                    </table>
+                    </th>                        
+                    <th>Deletions
+                    <table width="100%">
+                        <tr>
+                            <th>Sale.Val</th>
+                            <th>Dept</th>
+                        </tr>
+                    </table>
+                    </th>                        
+                    <th>Closing
+                    <table width="100%">
+                        <tr>
+                            <th>Cl.Val</th>
+                            <th>Dept</th>
+                        </tr>
+                    </table>
+                    </th>
+                    <th>W.D&nbsp;Val</th>
+                    </tr>
+                    <tbody id="table_body">
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div data-theme="b" data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="outstanding-home.html" rel="external" data-icon="back">Outstanding</a></li>
+                    <li><a href="workshop-home.html" rel="external" data-icon="back">Workshop</a></li>                        
+                    <li><a href="#" data-icon="action">Logout</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script>
+
+
+
+           
+            var _URL = _DIR_TO_SERVER+'erp.api/SalesSummaries/getlist.json';
+             $.getJSON(_URL, function(data) {    
+                 $.each(data.SalesSummaries, function(i, row) {
+                     category = row['SalesSummary']['category'];
+                     open_balance_purchase = row['SalesSummary']['open_balance_purchase'];
+                     open_balance_dept = row['SalesSummary']['open_balance_dept'];
+                     
+                     addition_balance_purchase = row['SalesSummary']['addition_balance_purchase'];
+                     addition_balance_dept = row['SalesSummary']['addition_balance_dept'];
+                     
+                     deletion_sales_value = row['SalesSummary']['deletion_sales_value'];
+                     deletion_dept_value = row['SalesSummary']['deletion_dept_value'];
+                     
+                     closing_banalce_value = row['SalesSummary']['closing_banalce_value'];
+                     closing_banalce_dept = row['SalesSummary']['closing_banalce_dept'];
+                     
+                     w_d_value = row['SalesSummary']['w_d_value'];
+
+                     tr = '<tr>'                           
+                        +'<td>'+category+'</td>'
+                        +'<td>'
+                    +'<table cellpadding=0 cellspacing=0 width="100%">'
+                        +'<tr>'
+                            +'<td >'+open_balance_purchase+'</td>'
+                            +'<td >'+open_balance_dept+'</td>'
+                        +'</tr>'
+                    +'</table>'
+                    +'</td>'
+                    +'<td>'
+                    +'<table cellpadding=0 cellspacing=0 width="100%">'
+                        +'<tr>'
+                            +'<td>'+addition_balance_purchase+'</td>'
+                            +'<td>'+addition_balance_dept+'</td>'
+                        +'</tr>'
+                    +'</table>'
+                    +'</td>'                    
+                    +'<td>'
+                    +'<table cellpadding=0 cellspacing=0 width="100%">'
+                        +'<tr>'
+                            +'<td>'+deletion_sales_value+'</td>'
+                            +'<td>'+deletion_dept_value+'</td>'
+                        +'</tr>'
+                    +'</table>'
+                    +'</td>'                    
+                    +'<td>'
+                    +'<table cellpadding=0 cellspacing=0 width="100%">'
+                        +'<tr>'
+                            +'<td>'+closing_banalce_value+'</td>'
+                            +'<td>'+closing_banalce_dept+'</td>'
+                        +'</tr>'
+                    +'</table>'
+                    +'</td>'
+                    +'<td>'+w_d_value+'</th>'
++'</tr>';
+                     jQuery('#table_body').append(tr);
+                 });
+             });
+        
+
+        
+
+
+
+    </script>
+</body>
+</html>

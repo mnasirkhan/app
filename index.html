@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Home - Al Marwan </title>
+        <link rel="shortcut icon" href="jqm/favicon.ico">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+        <link rel="stylesheet" href="jqm/css/themes/default/jquery.mobile-1.4.3.min.css">
+        <link rel="stylesheet" href="jqm/_assets/css/jqm-demos.css">
+        <script src="jqm/js/jquery.js"></script>
+        <script src="jqm/_assets/js/index.js"></script>
+        <script src="jqm/js/jquery.mobile-1.4.3.min.js"></script>
+        <script src="jqm/my_functions.js"></script>
+        <style id="custom-icon">
+            .ui-icon-custom:after {
+                background-image: url("jqm/_assets/img/glyphish-icons/21-skull.png");
+                background-position: 3px 3px;
+                background-size: 70%;
+            }
+            .ui-header .ui-title {
+                margin-right: 10%;
+                margin-left: 10%;
+            }
+            .Row
+{
+    display: table;
+    width: 100%; /*Optional*/
+    table-layout: fixed; /*Optional*/
+    border-spacing: 5px; /*Optional*/
+}
+.Column {
+    display: table-cell;
+    border: 1px solid #ccc;
+    padding: 3px 2px;
+    text-align: center;
+    background-color: none; /*Optional*/
+    word-wrap: break-word; 
+}
+.Column img{
+    width: 100%;
+}
+.wordwrap { 
+    white-space: pre-wrap;      /* CSS3 */   
+    white-space: -moz-pre-wrap; /* Firefox */    
+    white-space: -pre-wrap;     /* Opera <7 */   
+    white-space: -o-pre-wrap;   /* Opera 7 */    
+    word-wrap: break-word;      /* IE */
+    font-size: 11px;
+}
+        </style>
+        
+    </head>
+    <body onload="">
+        <div data-role="page">
+            <div data-role="header" data-position="fixed">                 
+                    <h1>Reporting</h1>
+            </div>
+            <div data-role="content">
+                <div style="background: #fff;padding: 10px;-moz-border-radius: 15px;border-radius: 15px;" id="group_showcase"></div>
+                <form id="loginfrm" method="post" onSubmit="return doLogin()">
+                   <div class="ui-field-contain">
+                        <label for="username">Username:</label>
+                        <input data-clear-btn="true" type="text" autofocus name="username" required id="txt-user" value="">
+                    </div>
+                    <div class="ui-field-contain">
+                        <label for="password">Password</label>
+                        <input data-clear-btn="true" type="password"  name="password" required id="txt-pwd" value="">
+                    </div>
+                    <div class="ui-field-contain" align="center">
+                        <input type="submit" data-inline="true" class="ui-btn ui-btn-inline" value="Login" />
+                        <input type="reset" data-inline="true" value="Reset" />
+                    </div>
+                </form>
+            </div>
+            <div data-role="footer" data-position="fixed">                 
+                
+                
+                <h1>&copy;Copyrights Al Marwan Group</h1>
+                    
+                
+            </div>
+        </div>
+        <script>
+            
+            function doLogin() {                
+                var params = $('#loginfrm').serializeArray();
+                 $.getJSON(_Login_DIR_TO_SERVER+'user-ctrl.php',params, function(data) {   
+                     if (data.msg == 'failed') {
+                         alert('Invalid Username/or Password');
+                     } else {
+                         window.location='home.html';
+                     }
+                     
+                 });
+                 return false;
+            }
+            </script>
+    </body>
+</html>

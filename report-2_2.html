@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Home - Al Marwan </title>
+        <link rel="shortcut icon" href="jqm/favicon.ico">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+        <link rel="stylesheet" href="jqm/css/themes/default/jquery.mobile-1.4.3.min.css">
+        <link rel="stylesheet" href="jqm/_assets/css/jqm-demos.css">
+        <script src="jqm/js/jquery.js"></script>
+        <script src="jqm/_assets/js/index.js"></script>
+        <script src="jqm/js/jquery.mobile-1.4.3.min.js"></script>
+        <script src="jqm/my_functions.js"></script>
+        <style id="custom-icon">
+            .ui-icon-custom:after {
+                background-image: url("jqm/_assets/img/glyphish-icons/21-skull.png");
+                background-position: 3px 3px;
+                background-size: 70%;
+            }
+            .ui-header .ui-title {
+                margin-right: 10%;
+                margin-left: 10%;
+            }
+            .Row
+            {
+                display: table;
+                width: 100%; /*Optional*/
+                table-layout: fixed; /*Optional*/
+                border-spacing: 5px; /*Optional*/
+            }
+            .Column {
+                display: table-cell;
+                border: 1px solid #ccc;
+                padding: 3px 2px;
+                text-align: center;
+                background-color: none; /*Optional*/
+                word-wrap: break-word; 
+            }
+            .Column img{
+                width: 100%;
+            }
+            .wordwrap { 
+                white-space: pre-wrap;      /* CSS3 */   
+                white-space: -moz-pre-wrap; /* Firefox */    
+                white-space: -pre-wrap;     /* Opera <7 */   
+                white-space: -o-pre-wrap;   /* Opera 7 */    
+                word-wrap: break-word;      /* IE */
+                font-size: 11px;
+            }
+        </style>
+
+    </head>
+    <body onload="">
+        <div data-role="page" id="graph_view">
+            <div data-role="header" data-position="fixed">                 
+                <h1>Financial Report</h1>
+            </div>
+            <div data-role="content">
+                <div>
+                    <h3 id="table_view_revenue_heading"></h3>
+                    <div id="chart_div" style="width: 100%"></div>                
+                    <div id="table_view_revenue" data-role="content" style="">                    
+                    <div  class="Row" style="border-spacing:0px">
+                        <div class="Column">Month</div>
+                        <div class="Column">2014</div>
+                        <div class="Column">2015</div>
+                    </div>
+                </div>
+                </div>
+                
+            <hr />
+            
+                <div>
+                    <h3 id="table_view_profit_heading"></h3>
+                    <div id="chart_div_1" style="width: 100%"></div>                    
+                    <div id="table_view_profit" data-role="content" style="">
+                        <div  class="Row" style="border-spacing:0px">
+                            <div class="Column">Month</div>
+                            <div class="Column">2014</div>
+                            <div class="Column">2015</div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div>
+                    <h3 id="table_view_expenditure_heading"></h3>
+                    <div id="chart_div_2" style="width: 100%"></div>
+                    <div id="table_view_expenditure" data-role="content" style="">
+                    
+                    <div  class="Row" style="border-spacing:0px">
+                        <div class="Column">Month</div>
+                        <div class="Column">2014</div>
+                        <div class="Column">2015</div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div data-theme="b" data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="report-1.html" rel="external" data-icon="back">K.P.I</a></li>
+                        <li><a href="report-2.html" rel="external" data-icon="back">Normal view</a></li>                        
+                        <li><a href="#" data-icon="action">Logout</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div data-role="page" id="page_table_view">
+            <div data-role="header" data-position="fixed">                 
+                <h1>Financial Report</h1>
+            </div>
+            
+            
+
+            <div data-theme="b" data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="home.html" rel="external" data-icon="back">Dashboard</a></li>
+                        <li><a href="#graph_view" data-icon="back">Graph view</a></li>
+                        <li><a href="#" data-icon="action">Logout</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script>
+            google.load('visualization', '1', {packages: ['corechart', 'line']});
+            google.setOnLoadCallback(drawRavenueLines);
+            google.setOnLoadCallback(drawProfitLines);
+            google.setOnLoadCallback(drawOverheadExpLines);
+
+
+
+            function drawRavenueLines() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'X');
+                data.addColumn('number', '2014');
+                data.addColumn('number', '2015');
+                var set_title_txt ='Ravenu This Year vs Last Year';
+                var set_title='table_view_revenue';
+                
+                var my_data = {
+                    '0':  "0, 0",
+                    'Jan': "1000,5000",
+                    'Feb': "12000,9500",
+                    'Mar': "12000,9500",
+                    'Apr': "17000,15000",
+                    'May': "10000,9500",
+                    'Jun': "13500,15000",
+                    'Jul': "13500,18000",
+                    'Aug': "15000,25500",
+                    'Sep': "13500,13500",
+                    'Oct': "7800,7800",
+                    'Nov': "13500,10200",
+                    'Dec': "43500,11500",
+                };
+        
+                jQuery('#'+set_title+'_heading').html(set_title_txt);
+                
+                $.each(my_data, function(key, revenu) {
+                    revenu_array = revenu.split(',');                    
+                    data.addRows([[key, parseInt(revenu_array[0]), parseInt(revenu_array[1])]]);
+                    add_row = '<div class="Row" style="border-spacing:0px">'
+                    +'<div class="Column">'+key+'</div>'
+                    +'<div class="Column">'+revenu_array[0]+'/AED</div>'
+                    +'<div class="Column">'+revenu_array[1]+'/AED</div>'
+                +'</div>';
+                    jQuery('#'+set_title).append(add_row);                    
+                });
+                var options = {
+                    hAxis: {
+                        title: set_title_txt
+                    },
+                    vAxis: {
+                        title: '2014 Vs 2015'
+                    },
+                    colors: ['#AB0D06', '#007329'],
+                    trendlines: {
+                        0: {type: 'exponential', color: '#333', opacity: 1},
+                        1: {type: 'linear', color: '#111', opacity: .3}
+                    }
+                };
+//      for (i=0; i< data.)
+//                $.each(my_data, function(key, value) {
+//                    console.log(key + ": " + value);
+//                });
+                var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+            }
+            function drawProfitLines() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'X');
+                data.addColumn('number', '2014');
+                data.addColumn('number', '2015');
+                var set_title_txt ='Profit by Percentage This Year vs Last Year';
+                var set_title= 'table_view_profit';
+                jQuery('#'+set_title+'_heading').html(set_title_txt);
+                var my_data = {
+                    '0':  "0, 0",
+                    'Jan': "8,5",
+                    'Feb': "6,9",
+                    'Mar': "7,5",
+                    'Apr': "6,5",
+                    'May': "7,6",
+                    'Jun': "8,5",
+                    'Jul': "9,8",
+                    'Aug': "8,5",
+                    'Sep': "8,5",
+                    'Oct': "9,7",
+                    'Nov': "9,7",
+                    'Dec': "8,8",
+                };
+                $.each(my_data, function(key, Profit) {
+                    Profit_array = Profit.split(',');                    
+                    data.addRows([[key, parseInt(Profit_array[0]), parseInt(Profit_array[1])]]);
+                    add_row = '<div class="Row" style="border-spacing:0px">'
+                    +'<div class="Column">'+key+'</div>'
+                    +'<div class="Column">'+Profit_array[0]+'%</div>'
+                    +'<div class="Column">'+Profit_array[1]+'%</div>'
+                +'</div>';
+                    jQuery('#'+set_title).append(add_row);
+                    
+                });
+
+                var options = {
+                    hAxis: {
+                        title: set_title_txt
+                    },
+                    vAxis: {
+                        title: '2014 vs 2015'
+                    },
+                    colors: ['#AB0D06', '#007329'],
+                    trendlines: {
+                        0: {type: 'exponential', color: '#333', opacity: 1},
+                        1: {type: 'linear', color: '#111', opacity: .3}
+                    }
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('chart_div_1'));
+                chart.draw(data, options);
+            }
+
+            function drawOverheadExpLines() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'X');
+                data.addColumn('number', '2014');
+                data.addColumn('number', '2015');
+
+                var set_title_txt   = 'Overhead Expenditure This Year vs Last Year';
+                var set_title       = 'table_view_expenditure';
+                jQuery('#'+set_title+'_heading').html(set_title_txt);
+                var my_data = {
+                    
+                    'Jan': "7,5",
+                    'Feb': "6,9",
+                    'Mar': "7,5",
+                    'Apr': "6,5",
+                    'May': "7,6",
+                    'Jun': "8,5",
+                    'Jul': "9,8",
+                    'Aug': "8,5",
+                    'Sep': "8,5",
+                    'Oct': "9,7",
+                    'Nov': "9,7",
+                    'Dec': "10,8",
+                };
+                $.each(my_data, function(key, Profit) {
+                    expend_array = Profit.split(',');                    
+                    data.addRows([[key, parseInt(expend_array[0]), parseInt(expend_array[1])]]);
+                    add_row = '<div class="Row" style="border-spacing:0px">'
+                    +'<div class="Column">'+key+'</div>'
+                    +'<div class="Column">'+expend_array[0]+'%</div>'
+                    +'<div class="Column">'+expend_array[1]+'%</div>'
+                +'</div>';
+                    jQuery('#'+set_title).append(add_row);
+                    
+                });
+
+
+                var options = {
+                    hAxis: {
+                        title: set_title
+                    },
+                    vAxis: {
+                        title: '2014 Vs 2015'
+                    },
+                    colors: ['#AB0D06', '#007329'],
+                    trendlines: {
+                        0: {type: 'exponential', color: '#333', opacity: 1},
+                        1: {type: 'linear', color: '#111', opacity: .3}
+                    }
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('chart_div_2'));
+                chart.draw(data, options);
+            }
+
+
+
+        </script>
+    </body>
+</html>

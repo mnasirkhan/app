@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Home - Al Marwan </title>
+        <link rel="shortcut icon" href="jqm/favicon.ico">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+        <link rel="stylesheet" href="jqm/css/themes/default/jquery.mobile-1.4.3.min.css">
+        <link rel="stylesheet" href="jqm/_assets/css/jqm-demos.css">
+        <link rel="stylesheet" href="custom.css">
+        <script src="jqm/js/jquery.js"></script>
+        <script src="jqm/_assets/js/index.js"></script>
+        <script src="jqm/js/jquery.mobile-1.4.3.min.js"></script>
+        <script src="jqm/my_functions.js"></script>
+        
+
+    </head>
+    <body onload="">
+        <div data-role="page">
+            <div data-role="header" data-position="fixed">                 
+                <a href="outstanding-receivable.html" rel="external">Back to Receivable</a>
+                <h1>Outstanding - Receivable Details</h1>
+            </div>
+            <div data-role="content">                
+                <div class="Row">
+                    <table width="100%">
+                        <tr>                            
+                            <th>Dated</th>                            
+                            <th>Partys'Name</th>                        
+                            <th>Amount</th>
+                            <th>Pending Amount</th>
+                            <th>Due On</th>
+                            <th>Overdue by days</th>
+                        </tr>
+                        <tbody id="table_body">
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div style="clear: both"></div>
+            
+
+            <div data-theme="b" data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="home.html" rel="external" data-icon="back">Dashboard</a></li>
+                        <li><a href="outstanding-home.html" rel="external" data-icon="back">Outstanding</a></li>
+                        <li><a href="#" data-icon="action">Logout</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            var payable_id = getUrlParameter('payable');
+            var _URL = _DIR_TO_SERVER+'erp.api/OutstandingReceivableDetails/getlist.json';
+             $.getJSON(_URL, {payable_id: payable_id}, function(data) {    
+                 $.each(data.OutstandingReceivableDetails, function(i, row) {
+                     customer_name = row['Customer']['name'];
+                     customer_ref = row['OutstandingReceivableDetail']['ref_no'];
+                     customer_dated = row['OutstandingReceivableDetail']['dated'];
+                     customer_pending_amt = row['OutstandingReceivableDetail']['pending_amount'];
+                     customer_amt = row['OutstandingReceivableDetail']['amount'];
+                     customer_due_date = row['OutstandingReceivableDetail']['due_date'];
+                     customer_over_due_days = row['OutstandingReceivableDetail']['over_due_days'];
+                     tr = '<tr>\n\
+                        <td>'+customer_dated+'</td>\n\\n\
+                        <td>'+customer_name+'</td>\n\
+                        <td>'+customer_amt+'</td>\n\
+                        <td>'+customer_pending_amt+'</td>\n\
+                        <td>'+customer_due_date+'</td>\n\
+                        <td>'+customer_over_due_days+'</td>\n\
+</tr>';
+                     jQuery('#table_body').append(tr);
+                 });
+             });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Home - </title>
+        <link rel="shortcut icon" href="jqm/favicon.ico">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+        <link rel="stylesheet" href="jqm/css/themes/default/jquery.mobile-1.4.3.min.css">
+        <link rel="stylesheet" href="jqm/_assets/css/jqm-demos.css">
+        <script src="jqm/js/jquery.js"></script>
+        <script src="jqm/_assets/js/index.js"></script>
+        <script src="jqm/js/jquery.mobile-1.4.3.min.js"></script>
+        <script src="jqm/my_functions.js"></script>
+        <style id="custom-icon">
+            .ui-icon-custom:after {
+                background-image: url("jqm/_assets/img/glyphish-icons/21-skull.png");
+                background-position: 3px 3px;
+                background-size: 70%;
+            }
+            .ui-header .ui-title {
+                margin-right: 10%;
+                margin-left: 10%;
+            }
+            .Row
+            {
+                display: table;
+                width: 100%; /*Optional*/
+                table-layout: fixed; /*Optional*/
+                border-spacing: 5px; /*Optional*/
+            }
+            .Column {
+                display: table-cell;
+                border: 1px solid #ccc;
+                padding: 3px 2px;
+                text-align: center;
+                background-color: none; /*Optional*/
+                word-wrap: break-word; 
+            }
+            .Column img{
+                width: 100%;
+            }
+            .wordwrap { 
+                white-space: pre-wrap;      /* CSS3 */   
+                white-space: -moz-pre-wrap; /* Firefox */    
+                white-space: -pre-wrap;     /* Opera <7 */   
+                white-space: -o-pre-wrap;   /* Opera 7 */    
+                word-wrap: break-word;      /* IE */
+                font-size: 11px;
+            }
+        </style>
+
+    </head>
+    <body onload="">
+        <div data-role="page" id="graph_view">
+            <div data-role="header" data-position="fixed">                 
+                <h1>Financial Report</h1>
+            </div>
+            <div data-role="content">
+                <div id="mgh_projects" style="width: 100%"></div>                
+            </div>
+            
+            <div data-theme="b" data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="home.html" rel="external" data-icon="back">Dashboard</a></li>
+                        <li><a href="report-2_1.html" rel="external" data-icon="back">Combine view</a></li>
+                        <li><a href="#page_table_view" onclick="" data-icon="back">Table view</a></li>
+                        <li><a href="#" data-icon="action">Logout</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+       <script src="jqm/timesheet.js" type="text/javascript" />
+
+
+    </body>
+</html>

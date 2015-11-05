@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Home - Al Marwan </title>
+        <link rel="shortcut icon" href="jqm/favicon.ico">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+        <link rel="stylesheet" href="jqm/css/themes/default/jquery.mobile-1.4.3.min.css">
+        <link rel="stylesheet" href="jqm/_assets/css/jqm-demos.css">
+        <link rel="stylesheet" href="custom.css">
+        <script src="jqm/js/jquery.js"></script>
+        <script src="jqm/_assets/js/index.js"></script>
+        <script src="jqm/js/jquery.mobile-1.4.3.min.js"></script>
+        <script src="jqm/my_functions.js"></script>
+        <style id="custom-icon">
+            .ui-icon-custom:after {
+                background-image: url("jqm/_assets/img/glyphish-icons/21-skull.png");
+                background-position: 3px 3px;
+                background-size: 70%;
+            }
+            .ui-header .ui-title {
+                margin-right: 10%;
+                margin-left: 10%;
+            }
+            .Row
+            {
+                display: table;
+                width: 100%; /*Optional*/
+                table-layout: fixed; /*Optional*/
+                border-spacing: 5px; /*Optional*/
+            }
+            .Column {
+                display: table-cell;
+                border: 1px solid #ccc;
+                padding: 3px 2px;
+                text-align: center;
+                background-color: none; /*Optional*/
+                word-wrap: break-word; 
+            }
+            .Column img{
+                width: 100%;
+            }
+            .wordwrap { 
+                white-space: pre-wrap;      /* CSS3 */   
+                white-space: -moz-pre-wrap; /* Firefox */    
+                white-space: -pre-wrap;     /* Opera <7 */   
+                white-space: -o-pre-wrap;   /* Opera 7 */    
+                word-wrap: break-word;      /* IE */
+                font-size: 11px;
+            }
+        </style>
+
+    </head>
+    <body onload="">
+        <div data-role="page">
+            <div data-role="header" data-position="fixed">  
+                <a href="home.html" rel="external">Back to Dashbaord</a>
+                <h1>Outstanding - Payable</h1>
+            </div>
+            <div data-role="content">                
+                <div class="Row">
+                    <div id="dateformat_div" ></div>
+                    <div id="chart_div" ></div>
+                    <table width="100%">
+                        <tr>                            
+                            <th>Dated</th>                            
+                            <th>Partys'Name</th>                        
+                            <th>Amount</th>
+                            <th>Pending Amount</th>
+                            <th>Due On</th>
+                            <th>Overdue by days</th>
+                        </tr>
+                        <tbody id="table_body">
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div style="clear: both"></div>
+
+
+            <div data-theme="b" data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="home.html" rel="external" data-icon="back">Dashboard</a></li>
+                        <li><a href="outstanding-home.html" rel="external" data-icon="back">Outstanding</a></li>
+                        <li><a href="#" data-icon="action">Logout</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script>
+            google.load("visualization", "1.1", {packages: ["bar", "corechart", "table"]});
+            google.setOnLoadCallback(drawChart);
+           // google.setOnLoadCallback(drawDateFormatTable);
+
+            var _URL = _DIR_TO_SERVER+'erp.api/OutstandingPayables/getlist.json';
+            var graph_data = [];
+            var graph_data_year = [];
+            var graph_data_amount = [];
+            var graph_data_pending = [];
+            mgh_data_rows = '';
+
+
+            var chart;
+            var data;
+            var options;
+
+            function drawChart() {
+                dataTable = google.visualization.arrayToDataTable([
+                    ['Party', 'Dated', 'Total Receivable', 'Pending'],
+                ]);
+
+                options = {
+                    title: 'Company Payable',
+                    hAxis: {title: 'Company Payable by Due date', titleTextStyle: {color: 'red'}}
+                };
+
+                chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+                chart.draw(dataTable, options);
+                drawChart___();
+            }
+            
+            function drawChart___() {
+                _graph_data = [];
+                _graph_data.push('Client');
+//                _graph_data.push('Dated');
+                _graph_data.push('Total Payable');
+                _graph_data.push("Pending");
+                graph_data.push(_graph_data);
+
+                $.getJSON(_URL, function(data) {
+
+                    $.each(data.outstandingPayables, function(i, row) {
+                        _row = [];
+                        customer_name = row['Customer']['name'];
+                        customer_payable_id = row['OutstandingPayable']['id'];
+                        customer_dated = row['OutstandingPayable']['dated'];
+                        customer_pending_amt = row['OutstandingPayable']['pending_amount'];
+                        customer_amt = row['OutstandingPayable']['total_amount'];
+                        customer_due_date = row['OutstandingPayable']['due_date'];
+                        customer_over_due_days = row['OutstandingPayable']['over_due_days'];
+                        tr = '<tr style="cursor:pointer" onClick="window.location=\'outstanding-payable-details.html?payable=' + customer_payable_id + '\'">\n\
+                        <td>' + customer_dated + '</td>\n\
+                        <td>' + customer_name + '</td>\n\
+                        <td>' + customer_amt + '</td>\n\
+                        <td>' + customer_pending_amt + '</td>\n\
+                        <td>' + customer_due_date + '</td>\n\
+                        <td>' + customer_over_due_days + '</td>\n\
+</tr>';
+                        jQuery('#table_body').append(tr);
+                        
+                        c_date = customer_dated.split('/');
+//                        console.log(c_date[2]);
+//                        console.log(parseInt(c_date[2]), parseInt(c_date[1] ), parseInt(c_date[0]));
+                        
+                        _row.push( customer_name+'-'+ customer_due_date);
+                        _row.push(parseInt(customer_amt));
+                        _row.push(parseInt(customer_pending_amt));
+
+                        graph_data.push(_row);
+                    });
+
+                    mnkDataTable = new google.visualization.DataTable();
+                    
+//                    mnkDataTable.addColumn('date', 'Customer');
+                    var newData = graph_data;
+
+                    
+                    var numRows = newData.length;
+                    var numCols = newData[0].length;
+                    
+                    mnkDataTable.addColumn('string', newData[0][0]);
+//                    mnkDataTable.addColumn('date', new Date(newData[0][1]));
+                    
+//                    console.log(newData);
+//                    var formatter_short = new google.visualization.DateFormat({formatType: 'short'});
+//                    formatter_short.format(newData, newData[0][1]);
+                    
+                    for (var i = 1; i < numCols; i++) {                        
+                        mnkDataTable.addColumn('number', newData[0][i]);
+                    }
+
+                    // now add the rows.
+                    for (var i = 1; i < numRows; i++) {
+                        
+                        mnkDataTable.addRow(newData[i]);
+                    }
+
+                    // redraw the chart.
+                    chart.draw(mnkDataTable, options);
+                });
+
+
+
+            }
+            
+function drawDateFormatTable() {
+  var data = new google.visualization.DataTable();
+  data.addColumn('string', 'Employee Name');
+  data.addColumn('date', 'Start Date (Long)');
+  data.addColumn('date', 'Start Date (Medium)');
+  data.addColumn('date', 'Start Date (Short)');
+  data.addRows([
+    ['Mike', new Date(2008, 1, 28, 0, 31, 26),
+             new Date(2008, 1, 28, 0, 31, 26),
+             new Date(2008, 1, 28, 0, 31, 26)],
+    ['Bob', new Date(2007, 5, 1, 0),
+            new Date(2007, 5, 1, 0),
+            new Date(2007, 5, 1, 0)],
+    ['Alice', new Date(2006, 7, 16),
+              new Date(2006, 7, 16),
+              new Date(2006, 7, 16)]
+  ]);
+
+  // Create three formatters in three styles.
+  var formatter_long = new google.visualization.DateFormat({formatType: 'long'});
+  var formatter_medium = new google.visualization.DateFormat({formatType: 'medium'});
+  var formatter_short = new google.visualization.DateFormat({formatType: 'short'});
+
+  // Reformat our data.
+  formatter_long.format(data, 1);
+  formatter_medium.format(data,2);
+  formatter_short.format(data, 3);
+
+  // Draw our data
+  var table = new google.visualization.Table(document.getElementById('dateformat_div'));
+  table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+}
+
+        </script>
+    </body>
+</html>
