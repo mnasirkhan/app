@@ -83,13 +83,13 @@
         </div>
         <script>
         jQuery.support.cors = true;
-            var _PROJECT_DIR_ = 'http://172.16.5.2/mobile/itmanager/';
-var _DIR_TO_SERVER = _PROJECT_DIR_+'data-files/';
-var _Login_DIR_TO_SERVER = _PROJECT_DIR_+'data-files/';
+            var _PROJECT_DIR_ = 'http://orient-petroleum.com/app/';
+
+
             function doLogin() {                
                 var params = $('#loginfrm').serializeArray();
-                alert(params);
-                 $.getJSON(_Login_DIR_TO_SERVER+'user-ctrl.php',params, function(data) {   
+                
+                 $.getJSON(_PROJECT_DIR_+'user-ctrl.php',params, function(data) {   
                      alert(data.msg);
                      if (data.msg == 'failed') {
                          alert('Invalid Username/or Password');
