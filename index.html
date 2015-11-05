@@ -82,7 +82,9 @@
             </div>
         </div>
         <script>
-            
+            var _PROJECT_DIR_ = 'http://172.16.5.2/mobile/itmanager/';
+var _DIR_TO_SERVER = _PROJECT_DIR_+'data-files/';
+var _Login_DIR_TO_SERVER = _PROJECT_DIR_+'data-files/';
             function doLogin() {                
                 var params = $('#loginfrm').serializeArray();
                  $.getJSON(_Login_DIR_TO_SERVER+'user-ctrl.php',params, function(data) {   
