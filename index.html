@@ -70,6 +70,7 @@
                     <div class="ui-field-contain" align="center">
                         <input type="submit" data-inline="true" class="ui-btn ui-btn-inline" value="Login" />
                         <input type="reset" data-inline="true" value="Reset" />
+                        <div id="address-ajax"></div>
                     </div>
                 </form>
             </div>
@@ -88,7 +89,7 @@
 
             function doLogin() {                
                 var params = $('#loginfrm').serializeArray();
-                
+                $('#address-ajax').html(_PROJECT_DIR_);
                  $.getJSON(_PROJECT_DIR_+'user-ctrl.php',params, function(data) {   
                      alert(data.msg);
                      if (data.msg == 'failed') {
