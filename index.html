@@ -61,11 +61,11 @@
                 <form id="loginfrm" method="post" onSubmit="return doLogin()">
                    <div class="ui-field-contain">
                         <label for="username">Username:</label>
-                        <input data-clear-btn="true" type="text" autofocus name="username" required id="txt-user" value="">
+                        <input data-clear-btn="true" type="text" autofocus name="username" required id="txt-user" value="a">
                     </div>
                     <div class="ui-field-contain">
                         <label for="password">Password</label>
-                        <input data-clear-btn="true" type="password"  name="password" required id="txt-pwd" value="">
+                        <input data-clear-btn="true" type="password"  name="password" required id="txt-pwd" value="b">
                     </div>
                     <div class="ui-field-contain" align="center">
                         <input type="submit" data-inline="true" class="ui-btn ui-btn-inline" value="Login" />
@@ -83,21 +83,28 @@
         </div>
         <script>
         jQuery.support.cors = true;
-            var _PROJECT_DIR_ = 'http://172.16.5.2/mobile/itmanager/';
-var _DIR_TO_SERVER = _PROJECT_DIR_+'data-files/';
-var _Login_DIR_TO_SERVER = _PROJECT_DIR_+'data-files/';
-            function doLogin() {                
+            var _PROJECT_DIR_ = 'http://172.16.5.2/mobile/itmanager/data-files/';
+            function doLogin() {
                 var params = $('#loginfrm').serializeArray();
-                alert(params);
-                 $.getJSON(_Login_DIR_TO_SERVER+'user-ctrl.php',params, function(data) {   
-                     alert(data.msg);
-                     if (data.msg == 'failed') {
-                         alert('Invalid Username/or Password');
-                     } else {
-                         window.location='home.html';
-                     }
-                     
-                 });
+                
+                    $.ajax({
+                        type: 'POST',
+                        data: params,
+                        url: _PROJECT_DIR_+'user-ctrl.php',
+                        dataType: 'json',
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus + ': ' + errorThrown);
+                        },
+                        success: function (response) {
+                            if (response.msg == 'failed') {
+                                alert(response.error_msg);
+                            } else {
+                                window.location = 'home.html';
+                            }
+                        }
+                    });
+                
+
                  return false;
             }
             </script>
