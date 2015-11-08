@@ -77,8 +77,8 @@
         </div>
         <script>
             setTimeout('hide_loader()', 1000);
-            
-            $.getJSON(_DIR_TO_SERVER+'dashboard.php', function(data) {        
+            var _PROJECT_DIR_ = 'http://172.16.5.2/mobile/itmanager/data-files/';
+            $.getJSON(_PROJECT_DIR_+'dashboard.php', function(data) {        
                 var htmlBuffer = [];
                 htmlBuffer.push('<div class="Row">');
                 var index = 0;
