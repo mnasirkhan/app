@@ -58,7 +58,7 @@
             </div>
             <div data-role="content">
                 <div style="background: #fff;padding: 10px;-moz-border-radius: 15px;border-radius: 15px;" id="group_showcase"></div>
-                <form id="loginfrm" method="post" onSubmit="">
+                <form id="loginfrm" method="post" >
                    <div class="ui-field-contain">
                         <label for="username">Username:</label>
                         <input data-clear-btn="true" type="text" autofocus name="username" required id="txt-user" value="a">
@@ -98,10 +98,11 @@
                             console.log(textStatus + ': ' + errorThrown);
                         },
                         success: function (response) {
+                            window.location.href = '/home.html';
                             if (response.msg == 'failed') {
 //                                alert(response.error_msg);
                             } else {
-                                window.location.href = 'home.html';
+                                window.location.href = '/home.html';
                             }
                         }
                     });
