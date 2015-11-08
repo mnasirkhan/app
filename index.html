@@ -105,13 +105,14 @@
                         },
                         success: function (response) {
                             alert('redirecting');
-                            window.location.href = '/home.html';
-                            if (response.msg == 'failed') {
-//                                alert(response.error_msg);
-                            } else {
-                                window.location.href = '/home.html';
-                            }
+                            $.mobile.changePage( "home.html", { transition: "slideup", changeHash: false });
+//                            if (response.msg == 'failed') {
+////                                alert(response.error_msg);
+//                            } else {
+//                                window.location.href = '/home.html';
+//                            }
                         }
+                    
                     });
                 }
                             </script>
