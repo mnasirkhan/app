@@ -68,7 +68,7 @@
                         <input data-clear-btn="true" type="password"  name="password" required id="txt-pwd" value="b">
                     </div>
                     <div class="ui-field-contain" align="center">
-                        <input type="button" data-inline="true" class="ui-btn ui-btn-inline" onClick="doLogin()" value="Login" />
+                        <input type="button" data-inline="true" class="ui-btn ui-btn-inline" onClick="javascript:return doLogin()" value="Login" />
                         <input type="reset" data-inline="true" value="Reset" />
                         <div id="address-ajax"></div>
                     </div>
@@ -99,7 +99,7 @@
                         },
                         success: function (response) {
                             if (response.msg == 'failed') {
-                                alert(response.error_msg);
+//                                alert(response.error_msg);
                             } else {
                                 window.location.href = 'home.html';
                             }
