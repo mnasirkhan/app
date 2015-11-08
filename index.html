@@ -79,7 +79,7 @@
                 
                 <h1>&copy;Copyrights Al Marwan Group</h1>
                     
-                
+                <a href="home.html" data-ajax="false" id="do_redirect"></a>
             </div>
         </div>
         <script>
@@ -98,11 +98,11 @@
                             console.log(textStatus + ': ' + errorThrown);
                         },
                         success: function (response) {
-                            $.mobile.changePage( "home.html", { transition: "slideup", changeHash: false });
+                            window.location.href = 'home.html';
 //                            if (response.msg == 'failed') {
 ////                                alert(response.error_msg);
 //                            } else {
-//                                window.location.href = '/home.html';
+//                                window.location.replace = 'home.html';
 //                            }
                         }
                         
