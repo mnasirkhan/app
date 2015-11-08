@@ -81,7 +81,13 @@
                     
                 
             </div>
+            <div data-role="page" id="redirect">
+                <script>
+                    $.mobile.changePage('home.html');
+                </script>
+            </div>
         </div>
+        
         <script>
         jQuery.support.cors = true;
 
@@ -98,6 +104,7 @@
                             console.log(textStatus + ': ' + errorThrown);
                         },
                         success: function (response) {
+                            alert('redirecting');
                             window.location.href = '/home.html';
                             if (response.msg == 'failed') {
 //                                alert(response.error_msg);
