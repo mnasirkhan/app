@@ -84,7 +84,7 @@
         </div>
         <script>
         jQuery.support.cors = true;
-<<<<<<< HEAD
+
             var _PROJECT_DIR_ = 'http://172.16.5.2/mobile/itmanager/data-files/';
             function doLogin() {
                 var params = $('#loginfrm').serializeArray();
@@ -105,27 +105,7 @@
                             }
                         }
                     });
-                
-
-=======
-            var _PROJECT_DIR_ = 'http://orient-petroleum.com/app/';
-
-
-            function doLogin() {                
-                var params = $('#loginfrm').serializeArray();
-                $('#address-ajax').html(_PROJECT_DIR_);
-                 $.getJSON(_PROJECT_DIR_+'user-ctrl.php',params, function(data) {   
-                     alert(data.msg);
-                     if (data.msg == 'failed') {
-                         alert('Invalid Username/or Password');
-                     } else {
-                         window.location='home.html';
-                     }
-                     
-                 });
->>>>>>> origin/master
-                 return false;
-            }
-            </script>
+                }
+                            </script>
     </body>
 </html>
