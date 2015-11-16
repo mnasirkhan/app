@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Home - Al Marwan </title>
+        <link rel="shortcut icon" href="jqm/favicon.ico">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+        <link rel="stylesheet" href="jqm/css/themes/default/jquery.mobile-1.4.3.min.css">
+        <link rel="stylesheet" href="jqm/_assets/css/jqm-demos.css">
+        <script src="jqm/js/jquery.js"></script>
+        <script src="jqm/_assets/js/index.js"></script>
+        <script src="jqm/js/jquery.mobile-1.4.3.min.js"></script>
+        <script src="jqm/my_functions.js"></script>
+        <style id="custom-icon">
+            .ui-icon-custom:after {
+                background-image: url("jqm/_assets/img/glyphish-icons/21-skull.png");
+                background-position: 3px 3px;
+                background-size: 70%;
+            }
+            .ui-header .ui-title {
+                margin-right: 10%;
+                margin-left: 10%;
+            }
+            .Row
+            {
+                display: table;
+                width: 100%; /*Optional*/
+                table-layout: fixed; /*Optional*/
+                border-spacing: 5px; /*Optional*/
+            }
+            .Column {
+                display: table-cell;
+                border: 1px solid #ccc;
+                padding: 3px 2px;
+                text-align: center;
+                background-color: none; /*Optional*/
+                word-wrap: break-word; 
+            }
+            .Column img{
+                width: 100%;
+            }
+            .wordwrap { 
+                white-space: pre-wrap;      /* CSS3 */   
+                white-space: -moz-pre-wrap; /* Firefox */    
+                white-space: -pre-wrap;     /* Opera <7 */   
+                white-space: -o-pre-wrap;   /* Opera 7 */    
+                word-wrap: break-word;      /* IE */
+                font-size: 11px;
+            }
+        </style>
+
+    </head>
+    <body onload="">
+        
+        <div id="work-orders-list" data-role="page">
+            <div data-role="header" data-position="fixed">                 
+                <h1>Workshop Work Orders</h1>
+            </div>
+            <div data-role="content">
+                <table width="100%">
+                    <thead>
+                        <tr>                            
+                            <th align="left">CODE</th>
+                            <th align="left">W.O.No.</th>
+                            <th align="left">Date</th>
+                            <th align="left">Description</th>
+                            <th align="left">Hrs</th>
+                            <th align="left">Lab.Sell</th>
+                            <th align="left">Labour</th>
+                            <th align="left">B/O</th>
+                            <th align="left">O/W</th>
+                            <th align="left">SS</th>
+                            <th align="left">Oil</th>
+                            <th align="left">Hose</th>
+                            <th align="left">Steel</th>
+                            <th align="left">Misc.</th>
+                            <th align="left">Amount</th>
+                        </tr>
+                        
+                    </thead>
+                        <tbody id="table_body">
+                            
+                        </tbody>
+                    </table>
+            </div>
+            <div style="clear: both"></div>
+            
+
+            <div data-theme="b" data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" onclick="history.back()" rel="back" data-icon="back">Back</a></li>                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+          <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+          <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+        <script>
+            var payable_id = getUrlParameter('order');
+            var _URL = _DIR_TO_SERVER+'erp.api/WorkshopWorkorderSegments/getfullworkorders.json';
+             $.getJSON(_URL, {order: payable_id}, function(data) {    
+                 $.each(data.WorkshopWorkorderSegments, function(i, row) {
+                     work_order_id = row['WorkshopWorkorderSegment']['id'];
+                     work_order_number = row['WorkshopWorkorder']['work_order_number'];
+                     name = row['WorkshopWorkorderSegment']['name'];
+                     code = row['WorkshopWorkorder']['code'];
+                     start_date = row['WorkshopWorkorder']['start_date'];
+                     end_date = row['WorkshopWorkorderSegment']['close_date'];
+                     description = row['WorkshopWorkorderSegment']['description'];
+                     segment_date = row['WorkshopWorkorderSegment']['segment_date'];
+                     hrs = row['WorkshopWorkorderSegment']['hrs'];
+                     lab_sell = row['WorkshopWorkorderSegment']['lab_sell'];
+                     labour = row['WorkshopWorkorderSegment']['labour'];
+                     b_o = row['WorkshopWorkorderSegment']['b_o'];
+                     b_w = row['WorkshopWorkorderSegment']['b_w'];
+                     ss = row['WorkshopWorkorderSegment']['ss'];
+                     oil = row['WorkshopWorkorderSegment']['oil'];
+                     hose = row['WorkshopWorkorderSegment']['hose'];
+                     steel = row['WorkshopWorkorderSegment']['steel'];
+                     misc = row['WorkshopWorkorderSegment']['misc'];
+                     total_amt = row['WorkshopWorkorder']['amount'];
+                     
+                     tr = '<tr >\n\
+                        <td>'+code+'</td>\n\\n\
+                        <td>'+work_order_number+'</td>\n\
+                        <td>'+segment_date+'</td>\n\
+                        <td>'+description+'</td>\n\
+                        <td>'+hrs+'</td>\n\
+                        <td>'+lab_sell+'</td>\n\
+                        <td>'+labour+'</td>\n\
+                        <td>'+b_o+'</td>\n\
+                        <td>'+b_w+'</td>\n\
+                        <td>'+ss+'</td>\n\
+                        <td>'+oil+'</td>\n\
+                        <td>'+hose+'</td>\n\
+                        <td>'+steel+'</td>\n\
+                        <td>'+misc+'</td>\n\
+                        <td>'+total_amt+'</td>\n\
+</tr>';
+                     jQuery('#table_body').append(tr);
+                 });
+             });
+        </script>
+    </body>
+</html>

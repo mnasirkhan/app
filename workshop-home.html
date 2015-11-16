@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Home - Al Marwan </title>
+        <link rel="shortcut icon" href="jqm/favicon.ico">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+        <link rel="stylesheet" href="jqm/css/themes/default/jquery.mobile-1.4.3.min.css">
+        <link rel="stylesheet" href="jqm/_assets/css/jqm-demos.css">
+        <script src="jqm/js/jquery.js"></script>
+        <script src="jqm/_assets/js/index.js"></script>
+        <script src="jqm/js/jquery.mobile-1.4.3.min.js"></script>
+        <script src="jqm/my_functions.js"></script>
+        <script src="jqm/my_functions.js"></script>
+        
+        <style id="custom-icon">
+            .ui-icon-custom:after {
+                background-image: url("jqm/_assets/img/glyphish-icons/21-skull.png");
+                background-position: 3px 3px;
+                background-size: 70%;
+            }
+            .ui-header .ui-title {
+                margin-right: 10%;
+                margin-left: 10%;
+            }
+            .Row
+            {
+                display: table;
+                width: 100%; /*Optional*/
+                table-layout: fixed; /*Optional*/
+                border-spacing: 5px; /*Optional*/
+            }
+            .Column {
+                display: table-cell;
+                border: 1px solid #ccc;
+                padding: 3px 2px;
+                text-align: center;
+                background-color: none; /*Optional*/
+                word-wrap: break-word; 
+            }
+            .Column img{
+                width: 100%;
+            }
+            .wordwrap { 
+                white-space: pre-wrap;      /* CSS3 */   
+                white-space: -moz-pre-wrap; /* Firefox */    
+                white-space: -pre-wrap;     /* Opera <7 */   
+                white-space: -o-pre-wrap;   /* Opera 7 */    
+                word-wrap: break-word;      /* IE */
+                font-size: 11px;
+            }
+        </style>
+
+    </head>
+    <body onload="">
+        <div data-role="page" id="main-workshop-orders">
+            <div data-role="header" data-position="fixed">                 
+                <h1>Workshop Work Orders</h1>
+            </div>
+            <div data-role="content">                
+                <div class="Row">
+                    <label>Start Date</label>
+                    <input class="date_cal" name="sdate" id="sdate" placeholder="Start Date" type="text" data-role="date">
+                </div>
+                <div class="Row">
+                    <label>End Date</label>
+                    <input class="date_cal" name="edate" id="edate" placeholder="Start Date" type="text" data-role="date">
+                </div>
+                <div class="Row">                    
+                    <a href="#work-orders-list" class="ui-btn" onclick="get_orders();" >Get Work Orders</a>
+                </div>
+
+            </div>
+            <div style="clear: both"></div>
+            
+
+            <div data-theme="b" data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="home.html" rel="external" data-icon="back">Dashboard</a></li>
+                        <li><a href="#" data-icon="action">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="work-orders-list" data-role="page">
+            <div data-role="header" data-position="fixed">                 
+                <h1>Workshop Work Orders</h1>
+            </div>
+            <div data-role="content">
+                <table width="100%">
+                    <thead>
+                        <tr>                            
+                            <th align="left">CODE</th>
+                            <th align="left">W.O.No.</th>
+                            <th align="left">Date</th>                            
+                            <th align="left">Segments</th>
+                            <th align="left">Amount</th>
+                        </tr>
+                    </thead>
+                        <tbody id="table_body">
+                            
+                        </tbody>
+                    </table>
+            </div>
+            <div style="clear: both"></div>
+            
+
+            <div data-theme="b" data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#main-workshop-orders" rel="back" data-icon="back">Dashboard</a></li>                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+          <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+          <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+              
+
+        <script>
+            
+            var _URL = _DIR_TO_SERVER+'erp.api/WorkshopWorkorders/getworkorders.json';
+             function get_orders() {
+                 var sdate= $('#sdate').val();
+                 var edate= $('#edate').val();
+                 
+                 $.getJSON(_URL, {
+                     sdate: sdate,
+                     edate: edate
+                 }, function(data) {
+                 jQuery('#table_body').empty();    
+                 $.each(data.WorkshopWorkorders, function(i, row) {
+                     work_order_id = row['WorkshopWorkorder']['id'];
+                     work_order_number = row['WorkshopWorkorder']['work_order_number'];
+                     name = row['WorkshopWorkorder']['name'];
+                     code = row['WorkshopWorkorder']['code'];
+                     start_date = row['WorkshopWorkorder']['start_date'];
+                     end_date = row['WorkshopWorkorder']['close_date'];
+                     total_amt = row['WorkshopWorkorder']['amount'];
+                     total_segments = row['WorkshopWorkorder']['total_segments'];
+                     
+                     tr = '<tr style="cursor:pointer" onClick="window.location=\'workshop-order-details.html?order=' + work_order_id + '\'">\n\
+                        <td>'+code+'</td>\n\\n\
+                        <td>'+work_order_number+'</td>\n\
+                        <td>Start: '+start_date+'<br />Closing: '+end_date+'</td>\n\
+                        <td>'+total_segments+'</td>\n\
+                        <td>'+total_amt+'</td>\n\
+</tr>';             
+                     jQuery('#table_body').append(tr);
+                 });
+             });
+             }
+            // $( ".date_cal" ).datepicker({
+            //     dateFormat: "dd/mm/yy"
+            // });
+             
+             $('.date_cal').datepicker({
+            //inline: true,
+            dateFormat: 'dd/mm/yy',
+            onSelect: function (selectedDate) {
+                var id = $(this).attr("id");
+                if (id == "sdate") {
+                    $("#edate").datepicker('option', 'minDate', selectedDate);
+                }
+                else {
+                    $("#sdate").datepicker('option', 'maxDate', selectedDate);
+                }
+            }
+        });
+        
+        $("#edate").datepicker('option', 'minDate', new Date($.now()));
+        $("#sdate").datepicker('option', 'maxDate', new Date($.now()));
+        </script>
+    </body>
+</html>
