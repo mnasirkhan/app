@@ -1,5 +1,4 @@
-var get_response_from = 'http://www.mgcc.ae/mobile/';
-var live_dir_link = 'http://www.mgcc.ae/mobile/';
+
 var _PROJECT_DIR_ = 'http://172.16.5.2/mobile/itmanager/';
 var _DIR_TO_SERVER = _PROJECT_DIR_ + 'data-files/';
 var _Login_DIR_TO_SERVER = _PROJECT_DIR_ + 'data-files/';
