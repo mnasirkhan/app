@@ -1,0 +1,90 @@
+/* 
+    Document   : custom
+    Created on : Aug 20, 2015, 3:12:48 PM
+    Author     : HP
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/** Tables **/
+table {
+	border-right:0;
+	clear: both;
+	color: #333;
+	margin-bottom: 10px;
+	width: 100%;
+}
+th {
+	border:0;
+	border-bottom:2px solid #555;
+	text-align: left;
+	padding:4px;
+        font-size: 10px;
+}
+th a {
+	display: block;
+	padding: 2px 4px;
+	text-decoration: none;
+}
+th a.asc:after {
+	content: ' ⇣';
+}
+th a.desc:after {
+	content: ' ⇡';
+}
+table tr td {
+	padding: 6px;
+	text-align: left;
+	vertical-align: top;
+	border-bottom:1px solid #ddd;
+        font-size: 10px;
+}
+table tr:nth-child(even) {
+	background: #f9f9f9;
+}
+td.actions {
+	text-align: center;
+	white-space: nowrap;
+}
+table td.actions a {
+	margin: 0px 6px;
+	padding:2px 5px;
+}
+
+
+            .ui-icon-custom:after {
+                background-image: url("jqm/_assets/img/glyphish-icons/21-skull.png");
+                background-position: 3px 3px;
+                background-size: 70%;
+            }
+            .ui-header .ui-title {
+                margin-right: 10%;
+                margin-left: 10%;
+            }
+            .Row
+            {
+                display: table;
+                width: 100%; /*Optional*/
+                table-layout: fixed; /*Optional*/
+                border-spacing: 5px; /*Optional*/
+            }
+            .Column {
+                display: table-cell;
+                border: 1px solid #ccc;
+                padding: 3px 2px;
+                text-align: center;
+                background-color: none; /*Optional*/
+                word-wrap: break-word; 
+            }
+            .Column img{
+                width: 100%;
+            }
+            .wordwrap { 
+                white-space: pre-wrap;      /* CSS3 */   
+                white-space: -moz-pre-wrap; /* Firefox */    
+                white-space: -pre-wrap;     /* Opera <7 */   
+                white-space: -o-pre-wrap;   /* Opera 7 */    
+                word-wrap: break-word;      /* IE */
+                font-size: 11px;
+            }
+        

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Home - Al Marwan </title>
+        <link rel="shortcut icon" href="jqm/favicon.ico">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+        <link rel="stylesheet" href="jqm/css/themes/default/jquery.mobile-1.4.3.min.css">
+        <link rel="stylesheet" href="jqm/_assets/css/jqm-demos.css">
+        <script src="jqm/js/jquery.js"></script>
+        <script src="jqm/_assets/js/index.js"></script>
+        <script src="jqm/js/jquery.mobile-1.4.3.min.js"></script>
+        <script src="jqm/my_functions.js"></script>
+        <style id="custom-icon">
+            .ui-icon-custom:after {
+                background-image: url("jqm/_assets/img/glyphish-icons/21-skull.png");
+                background-position: 3px 3px;
+                background-size: 70%;
+            }
+            .ui-header .ui-title {
+                margin-right: 10%;
+                margin-left: 10%;
+            }
+            .Row
+{
+    display: table;
+    width: 100%; /*Optional*/
+    table-layout: fixed; /*Optional*/
+    border-spacing: 5px; /*Optional*/
+}
+.Column {
+    display: table-cell;
+    border: 1px solid #ccc;
+    padding: 3px 2px;
+    text-align: center;
+    background-color: none; /*Optional*/
+    word-wrap: break-word; 
+}
+.Column img{
+    width: 100%;
+}
+.wordwrap { 
+    white-space: pre-wrap;      /* CSS3 */   
+    white-space: -moz-pre-wrap; /* Firefox */    
+    white-space: -pre-wrap;     /* Opera <7 */   
+    white-space: -o-pre-wrap;   /* Opera 7 */    
+    word-wrap: break-word;      /* IE */
+    font-size: 11px;
+}
+        </style>
+        
+    </head>
+    <body onload="onPageLoad()">
+        <div data-role="page">
+            <div data-role="header" data-position="fixed">                 
+                    <h1>Reporting</h1>
+            </div>
+            <div data-role="content">
+                <div style="background: #fff;padding: 10px;-moz-border-radius: 15px;border-radius: 15px;" id="group_showcase"></div>
+                
+                
+                
+                
+            </div>
+            <div data-theme="b" data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                
+                    <ul>
+                        <li><a href="#dashboard" data-icon="gear">Settings</a></li>
+                        <li><a href="#Logout" data-icon="back">Logout</a></li>
+
+                    </ul>
+                
+                </div>
+            </div>
+        </div>
+        <script>
+            //setTimeout('hide_loader()', 1000);
+            var _PROJECT_DIR_ = 'http://172.16.5.2/mobile/itmanager/data-files/';
+            
+            var onPageLoad = function() {
+                
+                $.getJSON(_PROJECT_DIR_+'dashboard.php', function(data) {
+                var htmlBuffer = [];
+                htmlBuffer.push('<div class="Row">');
+                var index = 0;
+                var per_line = 3;
+                $.each(data, function(i, row) {                    
+                    if (index % per_line === 0) {                            
+                        htmlBuffer.push('</div>');
+                        htmlBuffer.push('<div class="Row">');
+                    }
+                    index++;
+                    htmlBuffer.push('<div class="Column"><a data-ajax="false" href="'+row.link+'"><img src="'+row.icon+'" alt="'+row.title+'" /><br />'+row.title+'</a></div>');
+                });
+                
+                var _mod = data['total'] % per_line;
+                if (_mod !== 0) {                       
+                    for (index=_mod; index < per_line; index++) {
+                        htmlBuffer.push('<div class="Column" style="border: none"></div>');
+                    }
+                }                   
+                htmlBuffer.push('</div>');                   
+                html = htmlBuffer.join('\n');
+                 $('#group_showcase').append(html);
+                // hide_loader();
+                
+            });
+            }
+            
+            </script>
+    </body>
+</html>
